@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+    <script src="/javascripts/jq.js"></script>
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+{% endblock %}
+
+{% block title %}
+    index {{ title }}
+{% endblock %}
+
+{% block content %}
+    <div class="panel">
+        <p class="page-header">测试报告记录</p>
+        <table class="table">
+            <tr>
+                <td>
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    测试时间
+                </td>
+                <td>
+                    <span class="glyphicon glyphicon-modal-window"></span>
+                    测试模块
+                </td>
+                <td>
+                    <span class="glyphicon glyphicon-tasks"></span>
+                    测试点
+                </td>
+                <td>
+                    <span class="glyphicon glyphicon-list-alt"></span>
+                    步骤
+                </td>
+                <td>
+                    <span class="glyphicon glyphicon-flag"></span>
+                    测试结果
+                </td>
+                <td>
+                    <span class="glyphicon glyphicon-time"></span>
+                    耗时(秒)
+                </td>
+            </tr>
+
+            {% for row in rows %}
+                <tr>
+                    <td>{{ row.starttime }}</td>
+                    <td>{{ row.mdname }}</td>
+                    <td>{{ row.name }}</td>
+                    <td>步骤</td>
+                    {% if row.status=="PASS" %}
+                        <td class="alert-success">测试通过</td>
+                    {% else %}
+                        <td class="alert-danger">
+                            <a class="alert-danger" tabindex="0" role="button" data-toggle="popover"
+                               data-trigger="focus" title="错误信息"
+                               data-content="<pre>{{ row.message }}</pre>" data-placement="left">测试不通过(点击查看)</a>
+                        </td>
+                    {% endif %}
+                    <td>
+                        <div class="progress" style="background: none;box-shadow: none;margin: 0">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="{{ 100*row.duration/max_time }}"
+                                 aria-valuemin="0" aria-valuemax="100"
+                                 style="line-height: 15px;height: 15px;border-radius: 5px;min-width: 2em;width:{{ 100*row.duration/max_time }}%">
+                                {{ row.duration }} s
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <script>
+            $("[title='错误信息']").popover({
+                html: true
+            })
+        </script>
+    </div>
+
+{% endblock %}
