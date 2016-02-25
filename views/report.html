@@ -4,6 +4,8 @@
     <script src="/javascripts/jq.js"></script>
     <script src="/bootstrap/js/bootstrap.js"></script>
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <style>
+    </style>
 {% endblock %}
 
 {% block title %}
@@ -46,7 +48,7 @@
                     <td>{{ row.starttime }}</td>
                     <td>{{ row.mdname }}</td>
                     <td>{{ row.name }}</td>
-                    <td>步骤</td>
+                    <td class="pre">{{ row.step }}</td>
                     {% if row.status=="PASS" %}
                         <td class="alert-success">测试通过</td>
                     {% else %}
