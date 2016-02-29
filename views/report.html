@@ -46,16 +46,20 @@
             {% for row in rows %}
                 <tr>
                     <td>{{ row.starttime }}</td>
-                    <td>{{ row.mdname }}</td>
-                    <td>{{ row.name }}</td>
+                    <td>{{ row.mdname_text }}</td>
+                    <td>{{ row.name_text }}</td>
                     <td class="pre">{{ row.step }}</td>
                     {% if row.status=="PASS" %}
-                        <td class="alert-success">测试通过</td>
+                        <td class="alert-success">success</td>
                     {% else %}
                         <td class="alert-danger">
+                            FAIL
                             <a class="alert-danger" tabindex="0" role="button" data-toggle="popover"
                                data-trigger="focus" title="错误信息"
-                               data-content="<pre>{{ row.message }}</pre>" data-placement="left">测试不通过(点击查看)</a>
+                               data-content="<pre>{{ row.message }}</pre>" data-placement="left">(详情)</a>
+                            <a class="alert-danger" tabindex="0" role="button" data-toggle="popover"
+                               data-trigger="focus" title="截图"
+                               data-content="<img style='width:320px;' src='/images/{{ row.jrn }}/{{ row.mdname+"."+row.name+".jpg" }}'>" data-placement="left">(截图)</a>
                         </td>
                     {% endif %}
                     <td>
@@ -71,7 +75,7 @@
             {% endfor %}
         </table>
         <script>
-            $("[title='错误信息']").popover({
+            $("[data-toggle='popover']").popover({
                 html: true
             })
         </script>

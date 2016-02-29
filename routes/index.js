@@ -21,8 +21,8 @@ router.get('/report', function (req, res, next) {
             "d.status, " +
             "d.mdname, " +
             "d.name, " +
-            "(select e.mdname from T_UI_MODNAME e where e.name = d.mdname) mdname, " +
-            "(select f.name from T_UI_TESTCASE f where f.module = d.mdname and f.methodName = d.name) name, " +
+            "(select e.mdname from T_UI_MODNAME e where e.name = d.mdname) mdname_text, " +
+            "(select f.name from T_UI_TESTCASE f where f.module = d.mdname and f.methodName = d.name) name_text, " +
             "(select f.step from T_UI_TESTCASE f where f.module = d.mdname and f.methodName = d.name) step, " +
             "d.duration, d.message, d.starttime " +
         "from " +
@@ -34,6 +34,7 @@ router.get('/report', function (req, res, next) {
                 "(select distinct a.jrn from T_UI_TEST_HISTORY a order by a.jrn desc limit 1) c ) " +
             "order by" +
                 " d.starttime desc;";
+    console.log(SqlOfnewestRst);
     client.query(SqlOfnewestRst, function (err, rows, fields) {
         var maxtime = 0;
         for (var i = 0; i < rows.length; i++) {
@@ -50,6 +51,8 @@ router.get('/report', function (req, res, next) {
     });
 
 });
+
+
 
 router.post("/uploadCapture",function (req, res, next) {
     if(req.method.toUpperCase()=="POST"){
