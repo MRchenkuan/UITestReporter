@@ -21,6 +21,7 @@ router.get('/report', function (req, res, next) {
             "d.status, " +
             "d.mdname, " +
             "d.name, " +
+            "d.platform, " +
             "(select e.mdname from T_UI_MODNAME e where e.name = d.mdname) mdname_text, " +
             "(select f.name from T_UI_TESTCASE f where f.module = d.mdname and f.methodName = d.name) name_text, " +
             "(select f.step from T_UI_TESTCASE f where f.module = d.mdname and f.methodName = d.name) step, " +

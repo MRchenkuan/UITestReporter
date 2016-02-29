@@ -41,6 +41,10 @@
                     <span class="glyphicon glyphicon-time"></span>
                     耗时(秒)
                 </td>
+                <td>
+                    <span class="glyphicon glyphicon-time"></span>
+                    平台类型
+                </td>
             </tr>
 
             {% for row in rows %}
@@ -59,7 +63,7 @@
                                data-content="<pre>{{ row.message }}</pre>" data-placement="left">(详情)</a>
                             <a class="alert-danger" tabindex="0" role="button" data-toggle="popover"
                                data-trigger="focus" title="截图"
-                               data-content="<img style='width:320px;' src='/images/{{ row.jrn }}/{{ row.mdname+"."+row.name+".jpg" }}'>" data-placement="left">(截图)</a>
+                               data-content="<img style='width:320px;' src='/images/{{ row.jrn }}/{{ row.mdname+"."+row.name+"."+row.platform+".jpg" }}'>" data-placement="left">(截图)</a>
                         </td>
                     {% endif %}
                     <td>
@@ -71,6 +75,7 @@
                             </div>
                         </div>
                     </td>
+                    <td>{{ row.platform }}</td>
                 </tr>
             {% endfor %}
         </table>
