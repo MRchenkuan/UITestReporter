@@ -24,6 +24,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 中间件的方式接受富文本
+app.use(require('connect-multiparty')());
+// 使用express接受富文本 报500 所以暂时不用
+//app.use(express.bodyParser({uploadDir:'./public/files/'}));
+
 app.use('/', routes);
 app.use('/users', users);
 
